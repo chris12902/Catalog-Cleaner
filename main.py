@@ -21,6 +21,25 @@ def buildUrl(url):
         url = url + "&Subcategory=13"
     else:
         url = url + "&Subcategory=3"
+    SortType = int(input("Which sort type would you like to use?\n1. relevance\n2. best selling\n3. most favorited\n4. recently updated\n5. price (low to high)\n6. price (high to low)\nInput a number: "))
+    if SortType == 2:
+        url = url + "&SortType=2"
+    elif SortType == 3:
+        url = url + "&SortType=1"
+    elif SortType == 4:
+        url = url + "&SortType=3"
+    elif SortType == 5:
+        url = url + "&SortType=4"
+    elif SortType == 6:
+        url = url + "&SortType=5"
+    if SortType == 2 or SortType == 3:
+        SortType = int(input("\n1. all time\n2. past week\n3. past day\nInput a number: "))
+        if SortType == 1:
+            url = url + "&SortAggregation=5"
+        elif SortType == 2:
+            url = url + "&SortAggregation=3"
+        else:
+            url = url + "&SortAggregation=1"
     Keyword = input("Enter the phrase you would like to search for: ").replace("&","%26").replace(" ","%20")
     url = url + "&Keyword="+Keyword
     return url
@@ -71,5 +90,11 @@ for i in range(0,len(thumbnails)):
         continue
 print("Completed scan (searched through "+str(total_ids)+" items on "+str(pages_to_search)+" pages, found "+str(total_copies)+" stolen clothes ("+str((total_copies/total_ids)*100)+"% copied)")
 print("Clean IDs:")
+f= open("Catalog Cleaner results.txt","w+")
 for i in ids:
-    print("https://www.roblox.com/catalog/"+str(i))
+    f.write("https://www.roblox.com/catalog/"+str(i)+"\n")
+f.close()
+PrintResults = input("These results have been saved to a .txt file titled \"Catalog Cleaner results\".\nWould you like to print them in the console? (y/n) ")
+if 'y' in PrintResults:
+    for i in ids:
+        print("https://www.roblox.com/catalog/"+str(i))

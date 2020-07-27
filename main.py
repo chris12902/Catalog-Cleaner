@@ -59,7 +59,7 @@ def PageSearch(pagenumber, url):
             for e in range(i+1,len(found_thumbs)):
                 if found_thumbs[i] == found_thumbs[e]:
                     total_copies = total_copies + 1
-                    if found_ids[i] > found_ids[e]:
+                    if found_ids[i] < found_ids[e]:
                         found_ids.pop(e)
                         found_thumbs.pop(e)
                     else:
@@ -80,7 +80,7 @@ for i in range(0,len(thumbnails)):
         for e in range(i+1,len(thumbnails)):
             if thumbnails[i] == thumbnails[e]:
                 total_copies = total_copies + 1
-                if ids[i] > ids[e]:
+                if ids[i] < ids[e]:
                     ids.pop(e)
                     thumbnails.pop(e)
                 else:

@@ -25,7 +25,7 @@ def buildUrl(url):
     url = url + "&Keyword="+Keyword
     return url
 def PageSearch(pagenumber, url):
-    global total_copies, total_ids, ids
+    global total_copies, total_ids, ids, thumbnails
     req = Request(url + "&PageNumber="+str(pagenumber))
     webpage = str(urlopen(req).read().decode('utf-8').encode('unicode-escape'))
     # gets item IDs, which is important for determining item age.
@@ -49,12 +49,26 @@ def PageSearch(pagenumber, url):
         except:
             continue
     ids = ids + found_ids
+    thumbnails = thumbnails + found_thumbs
 url = buildUrl(url)
 print("Searching...\n")
 for i in range(1,pages_to_search+1):
     print("Searching through page "+str(i))
     PageSearch(i, url)
 print("\n")
+for i in range(0,len(thumbnails)):
+    try:
+        for e in range(i+1,len(thumbnails)):
+            if thumbnails[i] == thumbnails[e]:
+                total_copies = total_copies + 1
+                if ids[i] > ids[e]:
+                    ids.pop(e)
+                    thumbnails.pop(e)
+                else:
+                    ids.pop(i)
+                    thumbnails.pop(i)
+    except:
+        continue
 print("Completed scan (searched through "+str(total_ids)+" items on "+str(pages_to_search)+" pages, found "+str(total_copies)+" stolen clothes ("+str((total_copies/total_ids)*100)+"% copied)")
 print("Clean IDs:")
 for i in ids:

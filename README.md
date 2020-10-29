@@ -1,0 +1,3 @@
+# THIS PROGRAM IS NOW PERMANENTLY DEPRECATED
+
+On November 4, 2020, Roblox unfortunately removed the ability to scrape the Avatar Shop search results using the search.roblox.com/catalog?json API, which this bot heavily relies on. An alternative endpoint exists, but it does not contain the Thumbnail JSON data the bot needs to determine if the clothing the bot finds in its search is stolen or not. This would mean the bot now has to send a GET request to another endpoint, increasing the amount of time the bot will take to process the clothing it finds and the risk of the bot getting ratelimited by Roblox. Because of this change, the bot is no longer being supported.
